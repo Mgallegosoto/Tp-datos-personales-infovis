@@ -1,31 +1,108 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mi TP — Visualización de Datos Personales</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TP — Visualización de Datos Personales</title>
   <style>
-    body{font-family:system-ui,Arial;margin:0;background:#0f1117;color:#e6e6e6}
-    header{padding:32px;text-align:center;border-bottom:1px solid #23283b}
-    main{max-width:960px;margin:0 auto;padding:24px}
-    section{background:#151a28;border:1px solid #23283b;border-radius:14px;padding:18px;margin-bottom:18px}
-    h1,h2{margin:0 0 12px} .note{color:#9aa3b2}
-    iframe{width:100%;min-height:440px;border:0;border-radius:10px}
+    :root { --bg:#0f1117; --card:#151924; --fg:#e6e6e6; --muted:#9aa3b2; --accent:#6ea8fe; }
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;
+    background:var(--bg);color:var(--fg);line-height:1.5}
+    header{padding:40px 20px;text-align:center;border-bottom:1px solid #212636}
+    header h1{margin:0 0 8px;font-size:2rem}
+    header p{margin:0;color:var(--muted)}
+    .container{max-width:1000px;margin:0 auto;padding:24px 16px}
+    .grid{display:grid;gap:20px}
+    @media(min-width:900px){.grid{grid-template-columns:1.2fr .8fr}}
+    .card{background:var(--card);border:1px solid #212636;border-radius:16px;padding:20px;box-shadow:0 6px 24px rgba(0,0,0,0.2)}
+    h2{font-size:1.4rem;margin:0 0 8px}
+    h3{font-size:1.1rem;margin:0 0 12px;color:var(--accent)}
+    .meta{color:var(--muted);font-size:0.9rem}
+    iframe{width:100%;min-height:420px;border:0;border-radius:12px;background:#0b0e14}
+    .note{font-size:0.9rem;color:var(--muted)}
+    footer{padding:24px;text-align:center;color:var(--muted)}
+    .code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0b0e14;padding:10px;border-radius:8px}
   </style>
 </head>
 <body>
   <header>
     <h1>Mi semana en datos</h1>
-    <p class="note">Prototipo — TP Visualización de Datos Personales</p>
+    <p>Exploro cómo distribuyo mi tiempo entre estudio, trabajo, deporte, sueño y traslados.</p>
   </header>
 
-  <main>
-    <section>
-      <h2>¿A qué dedico más tiempo en la semana?</h2>
-      <p class="note">Debajo va el iframe de DataWrapper.</p>
-      <!-- Pega aquí el iframe de tu gráfico de DataWrapper -->
-      <iframe title="Gráfico" src="about:blank"></iframe>
+  <main class="container">
+    <section class="grid">
+      <article class="card">
+        <h2>1) ¿A qué dedico más tiempo en la semana?</h2>
+        <p class="meta">Fuente: <em>cronograma_final_con_sueno_comidas.xlsx</em> • Visualizado con DataWrapper</p>
+        <!-- Reemplazá el src con el de tu gráfico publicado en DataWrapper -->
+        <iframe title="Distribución de horas por categoría" src="https://datawrapper.dwcdn.net/REEMPLAZAR_ID/1/"></iframe>
+        <p class="note">Tip: usá barras apiladas por categoría (Estudio, Trabajo, Deporte, Sueño, Transporte, Personal).</p>
+      </article>
+
+      <aside class="card">
+        <h3>Metodología</h3>
+        <p>Los bloques de tiempo se construyeron a partir de mi agenda semanal, agregando sueño, cenas y almuerzos. Se estandarizaron tiempos de traslado según distancia (SDF, oficina, gimnasio, Fátima).</p>
+        <p class="note">Cada visualización tiene título en forma de pregunta, como pide la consigna.</p>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>2) ¿Qué día tengo más carga de actividades?</h2>
+        <p class="meta">Fuente: dataset semanal • Visualizado con RAWGraphs o DataWrapper</p>
+        <iframe title="Horas por día" src="https://datawrapper.dwcdn.net/REEMPLAZAR_ID/1/"></iframe>
+        <p class="note">Suma la duración de cada bloque por día. Gráfico de barras simple (Lun..Dom).</p>
+      </article>
+
+      <article class="card">
+        <h2>3) ¿Cómo se reparte mi tiempo entre estudio, trabajo y deporte?</h2>
+        <p class="meta">Fuente: dataset semanal • Visualizado con Flourish</p>
+        <iframe title="Stacked area / columnas" src="https://public.flourish.studio/visualisation/REEMPLAZAR_ID/embed"></iframe>
+        <p class="note">Usá columnas apiladas por día o un Sankey simple con categorías.</p>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>4) ¿Cuánto tiempo pierdo en traslados?</h2>
+        <p class="meta">Fuente: dataset semanal • Visualizado con DataWrapper</p>
+        <iframe title="Tiempo en transporte" src="https://datawrapper.dwcdn.net/REEMPLAZAR_ID/1/"></iframe>
+        <p class="note">Podés mostrar minutos por trayecto (Casa↔SDF, Casa↔Oficina, etc.).</p>
+      </article>
+
+      <article class="card">
+        <h2>5) ¿Qué franjas horarias concentran más actividades?</h2>
+        <p class="meta">Fuente: dataset semanal • Visualizado con Tableau/Power BI (o DataWrapper)</p>
+        <iframe title="Heatmap horario" src="https://public.flourish.studio/visualisation/REEMPLAZAR_ID/embed"></iframe>
+        <p class="note">Heatmap (horas en filas × días en columnas) con total de minutos.</p>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Conclusiones</h2>
+      <ul>
+        <li>El mayor bloque de tiempo se concentra en <strong>Estudio</strong> y <strong>Sueño</strong>.</li>
+        <li>Los días más cargados son <strong>Lunes</strong> y <strong>Miércoles</strong>.</li>
+        <li>Los traslados suman un total no trivial; optimizar solapando gimnasio cerca de SDF ayuda.</li>
+      </ul>
+      <p class="note">Ajustá estas conclusiones según tus gráficos finales.</p>
+    </section>
+
+    <section class="card">
+      <h2>Cómo se hizo</h2>
+      <pre class="code">1) Dataset base: cronograma semanal (xlsx)
+2) Limpieza y agregados: sueño, cenas, almuerzos, traslados
+3) Visualizaciones:
+   • DataWrapper (barras/barras apiladas)
+   • RAWGraphs (treemap / sankey / stacked)
+   • Flourish (stacked / heatmap)
+   • Tableau o Power BI (opcional) 
+4) Publicación: GitHub Pages</pre>
     </section>
   </main>
+
+  <footer>TP Visualización de Datos Personales — 2025</footer>
 </body>
 </html>
