@@ -19,17 +19,20 @@
     header h1{margin:0 0 8px;font-size:2rem}
     header p{margin:0 0 14px;color:var(--muted)}
     .container{max-width:1000px;margin:0 auto;padding:24px 16px}
-    .grid{display:grid;gap:20px}
+    section{margin-bottom:36px} /* más separación entre bloques */
+    .grid{display:grid;gap:32px} /* más separación entre tarjetas */
     @media(min-width:900px){.grid{grid-template-columns:1.2fr .8fr}}
+    /* Forzar 1 columna a todo ancho cuando queramos */
+    .grid--single{grid-template-columns:1fr !important}
     .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px}
     h2{font-size:1.3rem;margin:0 0 8px}
     h3{font-size:1.05rem;margin:0 0 12px;color:var(--accent)}
     .meta{color:var(--muted);font-size:0.9rem;margin-bottom:10px}
     .viz{width:100%;height:520px;border:0;border-radius:12px;background:#fff}
+    .viz-wide{height:560px} /* un poco más alta para la primera */
     iframe{width:100%;min-height:420px;border:0;border-radius:12px;background:#fff}
     footer{padding:24px;text-align:center;color:var(--muted);border-top:1px solid var(--border)}
     ul{margin:0 0 6px 18px}
-    /* Botón/link a la fuente */
     .btn{
       display:inline-block; padding:10px 14px; border:1px solid var(--border);
       border-radius:10px; background:var(--card); color:var(--fg); text-decoration:none; font-weight:600
@@ -45,12 +48,12 @@
   </header>
 
   <main class="container">
-    <!-- 1) RAWGraphs (SVG) -->
-    <section class="grid">
+    <!-- 1) RAWGraphs (SVG) a TODO ANCHO -->
+    <section class="grid grid--single">
       <article class="card">
         <h2>1) ¿A qué dedico más tiempo en la semana?</h2>
         <p class="meta">Fuente: <em></em> • Visualizado con RAWGraphs</p>
-        <object class="viz" type="image/svg+xml" data="assets/Distribucion-categorias.svg">
+        <object class="viz viz-wide" type="image/svg+xml" data="assets/Distribucion-categorias.svg">
           <img src="assets/Distribucion-categorias.svg" alt="Distribución por categoría (SVG)" style="width:100%;height:auto;border-radius:12px;">
         </object>
       </article>
