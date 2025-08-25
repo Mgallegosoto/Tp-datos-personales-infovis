@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,23 +27,25 @@
 <body>
   <header>
     <h1>Mi semana en datos</h1>
-    <p>Exploro cómo distribuyo mi tiempo entre estudio, trabajo, deporte, sueño y traslados.</p>
+    <p>Exploro cómo distribuyo mi tiempo entre estudio, trabajo, deporte, sueño, traslados y comidas.</p>
   </header>
 
   <main class="container">
     <section class="grid">
       <article class="card">
         <h2>1) ¿A qué dedico más tiempo en la semana?</h2>
-        <p class="meta">Fuente: <em>cronograma_final_con_sueno_comidas.xlsx</em> • Visualizado con DataWrapper</p>
-        <!-- Reemplazá el src con el de tu gráfico publicado en DataWrapper -->
-        <iframe title="¿A qué dedico más tiempo en mi semana?" aria-label="Bar Chart" id="datawrapper-chart-FE8dH" src="https://datawrapper.dwcdn.net/FE8dH/2/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="209" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}})}();
-</script>
-        <p class="note">Tip: usá barras apiladas por categoría (Estudio, Trabajo, Deporte, Sueño, Transporte, Personal).</p>
+        <p class="meta">Fuente: <em>TP_semana_resumenes_FINAL_v3.xlsx</em> • Visualizado con Datawrapper</p>
+
+        <!-- Embed de Datawrapper (tu gráfico) -->
+        <iframe title="¿A qué dedico más tiempo en mi semana?" aria-label="Bar Chart" id="datawrapper-chart-FE8dH" src="https://datawrapper.dwcdn.net/FE8dH/2/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="209" data-external="1"></iframe>
+        <script type="text/javascript">!function(){"use strict";window.addEventListener("message",function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}})}();</script>
+
+        <p class="note">Tip: barras por categoría (Estudio, Trabajo, Deporte, Sueño, Transporte, Comida).</p>
       </article>
 
       <aside class="card">
         <h3>Metodología</h3>
-        <p>Los bloques de tiempo se construyeron a partir de mi agenda semanal, agregando sueño, cenas y almuerzos. Se estandarizaron tiempos de traslado según distancia (SDF, oficina, gimnasio, Fátima).</p>
+        <p>Los bloques de tiempo se construyeron a partir de mi agenda semanal, agregando sueño, cenas y almuerzos. Se estandarizaron tiempos de traslado según distancia (SDF, oficina, gimnasio, Fátima). En <strong>Actividad</strong> distingo “Trabajo presencial/virtual”, la <strong>categoría</strong> es “Trabajo”.</p>
         <p class="note">Cada visualización tiene título en forma de pregunta, como pide la consigna.</p>
       </aside>
     </section>
@@ -52,30 +53,31 @@
     <section class="grid">
       <article class="card">
         <h2>2) ¿Qué día tengo más carga de actividades?</h2>
-        <p class="meta">Fuente: dataset semanal • Visualizado con RAWGraphs o DataWrapper</p>
+        <p class="meta">Fuente: dataset semanal • Visualizado con Datawrapper</p>
+        <!-- Reemplazá REEMPLAZAR_ID por el ID de tu gráfico publicado -->
         <iframe title="Horas por día" src="https://datawrapper.dwcdn.net/REEMPLAZAR_ID/1/"></iframe>
-        <p class="note">Suma la duración de cada bloque por día. Gráfico de barras simple (Lun..Dom).</p>
+        <p class="note">Suma la duración de cada bloque por día (Lun..Dom). Gráfico de barras.</p>
       </article>
 
       <article class="card">
         <h2>3) ¿Cómo se reparte mi tiempo entre estudio, trabajo y deporte?</h2>
         <p class="meta">Fuente: dataset semanal • Visualizado con Flourish</p>
         <iframe title="Stacked area / columnas" src="https://public.flourish.studio/visualisation/REEMPLAZAR_ID/embed"></iframe>
-        <p class="note">Usá columnas apiladas por día o un Sankey simple con categorías.</p>
+        <p class="note">Columnas apiladas por día o un Sankey simple por categorías.</p>
       </article>
     </section>
 
     <section class="grid">
       <article class="card">
         <h2>4) ¿Cuánto tiempo pierdo en traslados?</h2>
-        <p class="meta">Fuente: dataset semanal • Visualizado con DataWrapper</p>
+        <p class="meta">Fuente: dataset semanal • Visualizado con Datawrapper</p>
         <iframe title="Tiempo en transporte" src="https://datawrapper.dwcdn.net/REEMPLAZAR_ID/1/"></iframe>
-        <p class="note">Podés mostrar minutos por trayecto (Casa↔SDF, Casa↔Oficina, etc.).</p>
+        <p class="note">Mostrá minutos por trayecto (Casa↔SDF, Casa↔Oficina, etc.).</p>
       </article>
 
       <article class="card">
         <h2>5) ¿Qué franjas horarias concentran más actividades?</h2>
-        <p class="meta">Fuente: dataset semanal • Visualizado con Tableau/Power BI (o DataWrapper)</p>
+        <p class="meta">Fuente: dataset semanal • Visualizado con Tableau/Power BI (o Datawrapper)</p>
         <iframe title="Heatmap horario" src="https://public.flourish.studio/visualisation/REEMPLAZAR_ID/embed"></iframe>
         <p class="note">Heatmap (horas en filas × días en columnas) con total de minutos.</p>
       </article>
@@ -86,7 +88,7 @@
       <ul>
         <li>El mayor bloque de tiempo se concentra en <strong>Estudio</strong> y <strong>Sueño</strong>.</li>
         <li>Los días más cargados son <strong>Lunes</strong> y <strong>Miércoles</strong>.</li>
-        <li>Los traslados suman un total no trivial; optimizar solapando gimnasio cerca de SDF ayuda.</li>
+        <li>Los traslados suman un total no trivial; optimizar gimnasio cerca de SDF ayuda.</li>
       </ul>
       <p class="note">Ajustá estas conclusiones según tus gráficos finales.</p>
     </section>
@@ -96,10 +98,10 @@
       <pre class="code">1) Dataset base: cronograma semanal (xlsx)
 2) Limpieza y agregados: sueño, cenas, almuerzos, traslados
 3) Visualizaciones:
-   • DataWrapper (barras/barras apiladas)
+   • Datawrapper (barras / apiladas)
    • RAWGraphs (treemap / sankey / stacked)
    • Flourish (stacked / heatmap)
-   • Tableau o Power BI (opcional) 
+   • Tableau o Power BI (opcional)
 4) Publicación: GitHub Pages</pre>
     </section>
   </main>
