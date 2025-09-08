@@ -4,46 +4,80 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TP — Visualización de Datos Personales</title>
+
+  <!-- Mejora carga de Datawrapper -->
+  <link rel="preconnect" href="https://datawrapper.dwcdn.net" crossorigin>
+
   <style>
     :root {
       --bg:#ffffff;
       --card:#f7f7f9;
       --fg:#111111;
       --muted:#6b7280;
-      --accent:#2563eb;
+      --accent:#1A6BC9;    /* color neutro preferido */
       --border:#e5e7eb;
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;background:var(--bg);color:var(--fg);line-height:1.55}
-    header{padding:40px 20px;text-align:center;border-bottom:1px solid var(--border)}
-    header h1{margin:0 0 8px;font-size:2rem}
-    header p{margin:0 0 14px;color:var(--muted)}
-    .container{max-width:1000px;margin:0 auto;padding:24px 16px}
-    section{margin-bottom:36px} /* más separación entre bloques */
-    .grid{display:grid;gap:32px} /* más separación entre tarjetas */
-    @media(min-width:900px){.grid{grid-template-columns:1.2fr .8fr}}
-    /* Forzar 1 columna a todo ancho cuando queramos */
-    .grid--single{grid-template-columns:1fr !important}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px}
-    h2{font-size:1.3rem;margin:0 0 8px}
-    h3{font-size:1.05rem;margin:0 0 12px;color:var(--accent)}
-    .meta{color:var(--muted);font-size:0.9rem;margin-bottom:10px}
-    .viz{width:100%;height:520px;border:0;border-radius:12px;background:#fff}
-    .viz-wide{height:560px} /* un poco más alta para la primera */
-    iframe{width:100%;min-height:420px;border:0;border-radius:12px;background:#fff}
-    footer{padding:24px;text-align:center;color:var(--muted);border-top:1px solid var(--border)}
-    ul{margin:0 0 6px 18px}
+    *{ box-sizing:border-box }
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;
+      background:var(--bg);
+      color:var(--fg);
+      line-height:1.55;
+    }
+
+    header{ padding:40px 20px; text-align:center; border-bottom:1px solid var(--border) }
+    header h1{ margin:0 0 8px; font-size:2rem }
+    header p{ margin:0 0 14px; color:var(--muted) }
+
+    .container{ max-width:1000px; margin:0 auto; padding:24px 16px }
+    section{ margin-bottom:36px }                  /* más separación entre bloques */
+    .grid{ display:grid; gap:32px }                /* más separación entre tarjetas */
+    @media(min-width:900px){ .grid{ grid-template-columns:1.2fr .8fr } }
+    .grid--single{ grid-template-columns:1fr !important } /* 1 columna todo ancho */
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:20px;
+    }
+    h2{ font-size:1.3rem; margin:0 0 8px }
+    h3{ font-size:1.05rem; margin:0 0 12px; color:var(--accent) }
+    .meta{ color:var(--muted); font-size:0.9rem; margin-bottom:10px }
+
+    /* --- Visualizaciones --- */
+    /* Evita “mordida” por baseline inline */
+    img, object, svg, iframe { display:block; vertical-align:top; }
+
+    /* SVG de RAWGraphs: podés mantener una altura fija si querés */
+    .viz{ width:100%; height:520px; border:0; border-radius:12px; background:#fff }
+    .viz-wide{ height:560px } /* un poco más alta para la primera */
+
+    /* Iframes: deja que el contenido (y DW script) defina la altura */
+    iframe{
+      width:100%;
+      height:auto;
+      border:0;
+      border-radius:12px;
+      background:#fff;
+    }
+
+    footer{ padding:24px; text-align:center; color:var(--muted); border-top:1px solid var(--border) }
+    ul{ margin:0 0 6px 18px }
+
     .btn{
       display:inline-block; padding:10px 14px; border:1px solid var(--border);
-      border-radius:10px; background:var(--card); color:var(--fg); text-decoration:none; font-weight:600
+      border-radius:10px; background:var(--card); color:var(--fg);
+      text-decoration:none; font-weight:600
     }
-    .btn:hover{background:#eef2ff;border-color:#c7d2fe}
+    .btn:hover{ background:#eef2ff; border-color:#c7d2fe }
   </style>
 </head>
 <body>
   <header>
     <h1>Mi semana en datos</h1>
-    <p>Distribución del tiempo entre Estudio, Trabajo, Deporte, Sueño, Transporte y Comida.</p>
+    <!<p>Distribución del tiempo entre Estudio, Trabajo, Deporte, Sueño, Transporte y Comida.</p>
     <a class="btn" href="https://docs.google.com/spreadsheets/d/1G9kKxcH9vigauHMMy1YUD2oiTNDelA_h/edit?gid=5908782#gid=5908782" target="_blank" rel="noopener noreferrer">📄 Ver fuente (Google Sheets)</a>
   </header>
 
@@ -52,8 +86,8 @@
     <section class="grid grid--single">
       <article class="card">
         <h2>1) ¿A qué dedico más tiempo en la semana?</h2>
-        <p class="meta">Herramienta: <em></em> RAWGraphs</p>
-        <object class="viz viz-wide" type="image/svg+xml" data="assets/Distribucion-categorias.svg">
+        <p class="meta">Herramienta: <em>RAWGraphs</em></p>
+        <object class="viz viz-wide" type="image/svg+xml" data="assets/Distribucion-categorias.svg" aria-label="Distribución por categoría (SVG)">
           <img src="assets/Distribucion-categorias.svg" alt="Distribución por categoría (SVG)" style="width:100%;height:auto;border-radius:12px;">
         </object>
       </article>
@@ -63,15 +97,36 @@
     <section class="grid">
       <article class="card">
         <h2>2) ¿Qué día tengo más carga horaria?</h2>
-        <p class="meta"> Herramienta: DataWrapper </p>
-        <iframe title="Horas por día" src="https://datawrapper.dwcdn.net/FE8dH/5/"></iframe>
+        <p class="meta">Herramienta: Datawrapper</p>
+
+        <!-- Embed oficial DW con auto-resize (ID único) -->
+        <iframe
+          title="Horas por día"
+          id="datawrapper-chart-FE8dH"
+          src="https://datawrapper.dwcdn.net/FE8dH/5/"
+          scrolling="no"
+          frameborder="0"
+          style="width:0; min-width:100% !important; border:none;"
+          height="480">
+        </iframe>
+        <script>
+        (function(){
+          var id = "datawrapper-chart-FE8dH";
+          window.addEventListener("message", function(e){
+            if (e.data && e.data["datawrapper-height"] && e.data["datawrapper-height"][id]) {
+              document.getElementById(id).style.height = e.data["datawrapper-height"][id] + "px";
+            }
+          });
+        })();
+        </script>
       </article>
 
       <!-- 3) Día × Categoría (Flourish/Datawrapper) -->
       <article class="card">
         <h2>3) ¿Cómo se reparte mi tiempo entre estudio, trabajo y deporte?</h2>
-        <p class="meta">Herramienta:</p>
-        <iframe title="Distribución por día y categoría" src="link"></iframe>
+        <p class="meta">Herramienta: Flourish (o Datawrapper)</p>
+        <!-- Reemplazá "link" por tu URL de embed de Flourish o DW -->
+        <iframe title="Distribución por día y categoría" src="link" loading="lazy" referrerpolicy="no-referrer"></iframe>
       </article>
     </section>
 
@@ -79,14 +134,14 @@
     <section class="grid">
       <article class="card">
         <h2>4) ¿Cuánto tiempo "pierdo" viajando?</h2>
-        <p class="meta">Herramienta:</p>
-        <iframe title="Tiempo en transporte" src="link"></iframe>
+        <p class="meta">Herramienta: Flourish o Datawrapper</p>
+        <iframe title="Tiempo en transporte" src="link" loading="lazy" referrerpolicy="no-referrer"></iframe>
       </article>
 
       <article class="card">
         <h2>5) ¿Cómo se distribuyen las horas de trabajo?</h2>
-        <p class="meta">Herramienta:</p>
-        <iframe title="Heatmap horario" src="link"></iframe>
+        <p class="meta">Herramienta: Flourish (heatmap) o Datawrapper</p>
+        <iframe title="Heatmap horario" src="link" loading="lazy" referrerpolicy="no-referrer"></iframe>
       </article>
     </section>
 
@@ -101,5 +156,17 @@
   </main>
 
   <footer>TP Visualización de Datos Personales — 2025</footer>
+
+  <!-- Auto-resize general de Datawrapper (fallback si agregás más charts DW sin script individual) -->
+  <script>
+  window.addEventListener("message", function(event){
+    if (typeof event.data === "object" && event.data["datawrapper-height"]) {
+      for (var chartId in event.data["datawrapper-height"]) {
+        var el = document.getElementById(chartId);
+        if (el) el.style.height = event.data["datawrapper-height"][chartId] + "px";
+      }
+    }
+  });
+  </script>
 </body>
 </html>
