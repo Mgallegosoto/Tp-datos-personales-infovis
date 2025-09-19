@@ -4,49 +4,64 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TP — Visualización de Datos Personales</title>
-  <meta name="description" content="TP InfoVis: página con visualizaciones (RAWGraphs, Datawrapper, Flourish)." />
+  <meta name="description" content="TP InfoVis: visualizaciones con RAWGraphs, Datawrapper y Flourish." />
   <link rel="preconnect" href="https://datawrapper.dwcdn.net" crossorigin>
+  <link rel="preconnect" href="https://public.flourish.studio" crossorigin>
   <style>
     :root{
-      --bg:#ffffff; --panel:#f7f7f9; --fg:#0b0c0f; --muted:#6b7280; --border:#e5e7eb; --accent:#1A6BC9;
-    }
-    @media (prefers-color-scheme: dark){
-      :root{ --bg:#0b0b0c; --panel:#141518; --fg:#EAECEF; --muted:#9aa3ad; --border:#23262d; }
+      --bg:#f3f4f6;         /* fondo gris */
+      --panel:#ffffff;      /* tarjetas blancas */
+      --fg:#0b0c0f;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --accent:#1A6BC9;
+      --radius:16px;
+      --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
     }
     *{ box-sizing:border-box }
     body{
       margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;
       background:var(--bg); color:var(--fg); line-height:1.55;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
-    header{ padding:40px 20px; text-align:center; border-bottom:1px solid var(--border) }
-    header h1{ margin:0 0 8px; font-size:2rem }
-    header p{ margin:0 0 14px; color:var(--muted) }
-
-    .container{ max-width:1100px; margin:0 auto; padding:24px 16px }
-    section{ margin-bottom:36px }
-    .card{
-      background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:20px;
-      overflow:visible; /* evita cortes */
+    header{
+      padding:48px 20px 28px; text-align:center;
     }
-    h2{ font-size:1.25rem; margin:0 0 10px }
-    .meta{ color:var(--muted); font-size:.9rem; margin-bottom:10px }
-
-    /* Aseguramos ancho completo y que nada se corte por altura */
-    img, svg, object, iframe{ display:block; max-width:100%; width:100%; border:0 }
-    object.svg-inline{ width:100%; height:auto; }
-    img.auto{ width:100%; height:auto; border-radius:12px; background:#fff }
-
-    /* Datawrapper iframe contenedor */
-    .dw-embed{ width:100%; }
-    .dw-embed iframe{ width:0; min-width:100% !important; border:0; }
-
-    footer{ padding:24px; text-align:center; color:var(--muted); border-top:1px solid var(--border) }
+    header h1{ margin:0 0 10px; font-size:2rem; letter-spacing:.2px }
+    header p{ margin:0 0 16px; color:var(--muted) }
     .btn{
       display:inline-block; padding:10px 14px; border:1px solid var(--border);
-      border-radius:10px; background:var(--panel); color:var(--fg);
+      border-radius:10px; background:#fff; color:var(--fg);
       text-decoration:none; font-weight:600
     }
-    .btn:hover{ background:rgba(26,107,201,.08); border-color:#c7d2fe }
+    .btn:hover{ background:#f8fafc; border-color:#c7d2fe }
+
+    .page{ max-width:1200px; margin:0 auto; padding:0 18px 48px }
+    .section{
+      background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px; margin:0 auto 26px; overflow:visible;
+    }
+    .section h2{ margin:0 0 8px; font-size:1.25rem }
+    .meta{ color:var(--muted); font-size:.92rem; margin:0 0 12px }
+
+    /* Visuales: que ocupen 100% del ancho del bloque sin cortes */
+    .media, img, svg, object, iframe, .flourish-embed{
+      display:block; width:100%; max-width:100%; border:0;
+    }
+    img, object{ height:auto; border-radius:12px; background:#fff }
+    /* Flourish: ocupa todo el ancho del bloque y deja que su script maneje el alto */
+    .flourish-embed{ border-radius:12px; background:#fff; }
+    .flourish-embed iframe{ width:100% !important; border:0; border-radius:12px; }
+
+    /* Datawrapper: usamos iframe + listener robusto para evitar cortes de altura */
+    .dw-wrap{ width:100%; }
+    .dw-wrap iframe{
+      width:0; min-width:100% !important; border:0; border-radius:12px; background:#fff;
+      height:460px; /* alto inicial, luego el script lo ajusta */
+    }
+
+    footer{ text-align:center; color:var(--muted); padding:12px 0 30px }
   </style>
 </head>
 <body>
@@ -56,54 +71,77 @@
     <a class="btn" href="https://docs.google.com/spreadsheets/d/1G9kKxcH9vigauHMMy1YUD2oiTNDelA_h/edit?gid=5908782#gid=5908782" target="_blank" rel="noopener noreferrer">📄 Ver fuente (Google Sheets)</a>
   </header>
 
-  <main class="container">
-    <!-- 1) RAWGraphs (SVG) -->
-    <section>
-      <article class="card">
-        <h2>1) ¿A qué categorías dedico más horas?</h2>
-        <p class="meta">Herramienta: <em>RAWGraphs</em> · Archivo SVG local</p>
-        <!-- Recomendado: usar nombre sin espacios y respetar mayúsculas/minúsculas -->
-        <object class="svg-inline" type="image/svg+xml" data="assets/carga-por-categoria.svg" aria-label="Carga por categoría">
-          <!-- Fallback si hubiera problemas al cargar el SVG -->
-          <img class="auto" src="assets/carga-por-categoria.svg" alt="Carga por categoría (RAWGraphs)">
-        </object>
-      </article>
+  <main class="page">
+
+    <!-- 1) Flourish (Embed a todo el ancho del bloque) -->
+    <section class="section">
+      <h2>1) ¿Cómo se distribuyen Trabajo, Estudio y Deporte?</h2>
+      <p class="meta">Herramienta: <em>Flourish</em></p>
+      <!-- Pegado del embed que me pasaste -->
+      <div class="flourish-embed flourish-survey" data-src="visualisation/25222266">
+        <script src="https://public.flourish.studio/resources/embed.js"></script>
+        <noscript><img src="https://public.flourish.studio/visualisation/25222266/thumbnail" width="100%" alt="survey visualization" /></noscript>
+      </div>
     </section>
 
-    <!-- 2) Datawrapper (iframe + auto-resize robusto) -->
-    <section>
-      <article class="card">
-        <h2>2) ¿Qué día tengo más carga horaria?</h2>
-        <p class="meta">Herramienta: <em>Datawrapper</em></p>
-        <div class="dw-embed">
-          <iframe title="Horas por día" src="https://datawrapper.dwcdn.net/i1iLp/" scrolling="no"></iframe>
-        </div>
-      </article>
+    <!-- 2) Datawrapper (sin cortes) -->
+    <section class="section">
+      <h2>2) ¿Qué día tengo más carga horaria?</h2>
+      <p class="meta">Herramienta: <em>Datawrapper</em></p>
+      <div class="dw-wrap">
+        <!-- Opción robusta: iframe + listener -->
+        <iframe
+          id="datawrapper-chart-i1iLp"
+          title="Horas por día"
+          src="https://datawrapper.dwcdn.net/i1iLp/"
+          scrolling="no"
+          loading="lazy">
+        </iframe>
+      </div>
     </section>
 
-    <!-- 3) Flourish como PNG -->
-    <section>
-      <article class="card">
-        <h2>3) ¿Cómo se distribuyen Trabajo, Estudio y Deporte?</h2>
-        <p class="meta">Herramienta: <em>Flourish</em> · PNG exportado</p>
-        <!-- Exportá el PNG desde Flourish y guardalo en assets/ -->
-        <img class="auto" src="assets/flourish-trabajo-estudio-deporte.png" alt="Distribución de Trabajo, Estudio y Deporte (Flourish PNG)">
-      </article>
+    <!-- 3) RAWGraphs (imagen / svg) -->
+    <section class="section">
+      <h2>3) ¿A qué categorías dedico más horas?</h2>
+      <p class="meta">Herramienta: <em>RAWGraphs</em> · imagen local</p>
+      <!-- Cambiá la ruta si tu archivo se llama distinto.
+           Recomendado: sin espacios y en minúsculas. Ej: assets/rawgraphs-carga-categorias.svg -->
+      <img class="media" src="assets/carga-por-categoria.svg" alt="Carga por categoría (RAWGraphs)">
+      <!-- Si lo tenés en PNG, usá: src="assets/rawgraphs-carga-categorias.png" -->
     </section>
+
+    <!-- 4) Placeholder para otra visualización -->
+    <section class="section">
+      <h2>4) Visualización adicional</h2>
+      <p class="meta">Pegá aquí el próximo embed o imagen.</p>
+      <!-- Pegar aquí Flourish/Datawrapper/iframe o <img> -->
+    </section>
+
+    <!-- 5) Placeholder para otra visualización -->
+    <section class="section">
+      <h2>5) Visualización adicional</h2>
+      <p class="meta">Pegá aquí el próximo embed o imagen.</p>
+      <!-- Pegar aquí Flourish/Datawrapper/iframe o <img> -->
+    </section>
+
   </main>
 
   <footer>TP Visualización de Datos Personales — 2025</footer>
 
-  <!-- Auto-resize para TODOS los iframes de Datawrapper en la página -->
+  <!-- Auto-resize para TODOS los iframes de Datawrapper (evita cortes) -->
   <script>
-  window.addEventListener("message", function(event){
-    if (event && event.data && event.data["datawrapper-height"]) {
+  (function(){
+    function resizeDW(event){
+      if (!event || !event.data || !event.data["datawrapper-height"]) return;
       for (var key in event.data["datawrapper-height"]) {
-        var ifr = document.querySelector('iframe[src*="' + key + '"]');
-        if (ifr) { ifr.style.height = event.data["datawrapper-height"][key] + "px"; }
+        var byId = document.getElementById("datawrapper-chart-" + key);
+        var bySrc = document.querySelector("iframe[src*='" + key + "']");
+        var ifr = byId || bySrc;
+        if (ifr) ifr.style.height = event.data["datawrapper-height"][key] + "px";
       }
     }
-  });
+    window.addEventListener("message", resizeDW);
+  })();
   </script>
 </body>
 </html>
